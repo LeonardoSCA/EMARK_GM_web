@@ -1,9 +1,8 @@
-package com.example.emarkGM.servicio.impl;
+package com.example.emarkGM.modelo.servicio;
 
-import com.example.emarkGM.modelo.dto.solicitud.SolicitudProducto;
+import com.example.emarkGM.modelo.solicitud.SolicitudProducto;
 import com.example.emarkGM.modelo.entidad.Producto;
 import com.example.emarkGM.modelo.repositorio.RepositorioProducto;
-import com.example.emarkGM.servicio.ServicioProducto;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

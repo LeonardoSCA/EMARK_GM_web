@@ -1,4 +1,4 @@
-package com.example.emarkGM.configuracion;
+package com.example.emarkGM.controlador.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

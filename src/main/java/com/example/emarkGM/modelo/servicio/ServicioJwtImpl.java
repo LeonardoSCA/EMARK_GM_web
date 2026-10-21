@@ -1,6 +1,5 @@
-package com.example.emarkGM.servicio.impl;
+package com.example.emarkGM.modelo.servicio;
 
-import com.example.emarkGM.servicio.ServicioJwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;

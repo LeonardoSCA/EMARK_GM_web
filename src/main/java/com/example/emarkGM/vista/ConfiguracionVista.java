@@ -2,7 +2,6 @@ package com.example.emarkGM.vista;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -10,7 +9,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  *
  * <p>La vista de Emark GM está compuesta por archivos estáticos (HTML, CSS y JavaScript)
  * ubicados en {@code src/main/resources/vista/}. Esta clase los publica en la raíz web
- * y define las rutas amigables que apuntan a cada página de la tienda.</p>
+ * para que puedan solicitarse como {@code /index.html}, {@code /css/styles.css},
+ * {@code /js/app.js} y {@code /imagenes/**}.</p>
+ *
+ * <p>Las rutas amigables de la tienda ({@code /catalogo}, {@code /cotizador}, ...)
+ * están definidas en {@code com.example.emarkGM.controlador.vista.ControladorVista}.</p>
  */
 @Configuration
 public class ConfiguracionVista implements WebMvcConfigurer {
@@ -23,15 +26,5 @@ public class ConfiguracionVista implements WebMvcConfigurer {
         // Sirve /index.html, /css/styles.css, /js/app.js y /imagenes/** desde la carpeta vista
         registro.addResourceHandler("/**")
                 .addResourceLocations(UBICACION_VISTAS);
-    }
-
-    @Override
-    public void addViewControllers(ViewControllerRegistry registro) {
-        // Rutas amigables de la tienda hacia sus páginas HTML
-        registro.addViewController("/").setViewName("forward:/index.html");
-        registro.addViewController("/inicio").setViewName("forward:/index.html");
-        registro.addViewController("/catalogo").setViewName("forward:/catalogo.html");
-        registro.addViewController("/cotizador").setViewName("forward:/carrito.html");
-        registro.addViewController("/panel-admin").setViewName("forward:/admin.html");
     }
 }

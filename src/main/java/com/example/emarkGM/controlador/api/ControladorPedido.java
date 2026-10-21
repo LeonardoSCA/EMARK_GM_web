@@ -1,9 +1,9 @@
-package com.example.emarkGM.controlador;
+package com.example.emarkGM.controlador.api;
 
-import com.example.emarkGM.modelo.dto.respuesta.RespuestaConfirmacionPedido;
-import com.example.emarkGM.modelo.dto.solicitud.SolicitudCompra;
+import com.example.emarkGM.modelo.respuesta.RespuestaConfirmacionPedido;
+import com.example.emarkGM.modelo.solicitud.SolicitudCompra;
 import com.example.emarkGM.modelo.entidad.Pedido;
-import com.example.emarkGM.servicio.ServicioPedido;
+import com.example.emarkGM.modelo.servicio.ServicioPedido;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;

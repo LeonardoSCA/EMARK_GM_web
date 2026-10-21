@@ -1,6 +1,6 @@
-package com.example.emarkGM.configuracion;
+package com.example.emarkGM.controlador.config;
 
-import com.example.emarkGM.servicio.ServicioJwt;
+import com.example.emarkGM.modelo.servicio.ServicioJwt;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,8 +1,7 @@
-package com.example.emarkGM.servicio.impl;
+package com.example.emarkGM.modelo.servicio;
 
 import com.example.emarkGM.modelo.entidad.Categoria;
 import com.example.emarkGM.modelo.repositorio.RepositorioCategoria;
-import com.example.emarkGM.servicio.ServicioCategoria;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

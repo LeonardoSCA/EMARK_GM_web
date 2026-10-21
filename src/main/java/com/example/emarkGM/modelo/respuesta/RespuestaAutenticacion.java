@@ -1,4 +1,4 @@
-package com.example.emarkGM.modelo.dto.respuesta;
+package com.example.emarkGM.modelo.respuesta;
 
 public class RespuestaAutenticacion {
     private String token;

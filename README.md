@@ -11,15 +11,26 @@ El proyecto sigue el patrón **Modelo-Vista-Controlador**. Cada capa del MVC tie
 | Capa MVC | Paquete Java | Carpeta de recursos | Responsabilidad |
 | :--- | :--- | :--- | :--- |
 | **C** — Controlador | `controlador/` | — | Expone los endpoints REST, valida la petición y coordina la respuesta. |
-| **M** — Modelo | `modelo/` | — | Dominio, persistencia y contratos de datos (entidades, repositorios y DTO). |
+| **M** — Modelo | `modelo/` | — | Dominio, persistencia y contratos de datos (entidades, repositorios, DTO y servicios). |
 | **V** — Vista | `vista/` | `resources/vista/` | Presenta la interfaz al usuario (HTML, CSS, JS) y publica sus rutas. |
 
-Además se incluyen dos carpetas de soporte transversal:
+La capa **Controlador** se subdivide según su rol, igual que en un proyecto MVC clásico:
 
-| Paquete | Responsabilidad |
+| Subpaquete | Contenido |
 | :--- | :--- |
-| `servicio/` | Lógica de negocio desacoplada (SOLID), invocada por los controladores. |
-| `configuracion/` | Configuración técnica: seguridad (RBAC + JWT), CORS y codificadores. |
+| `controlador/api/` | Los endpoints REST de la tienda (`/api/...`). |
+| `controlador/config/` | Configuración técnica: seguridad RBAC + JWT, CORS, BCrypt y el filtro de token. |
+| `controlador/vista/` | Rutas amigables que muestran cada página HTML de la tienda. |
+
+Y la capa **Modelo** agrupa todo lo que representa y manipula datos:
+
+| Subpaquete | Contenido |
+| :--- | :--- |
+| `modelo/entidad/` | Las 5 entidades mapeadas a las tablas de PostgreSQL. |
+| `modelo/repositorio/` | Persistencia ligera con Spring Data JDBC. |
+| `modelo/solicitud/` | DTOs de entrada (lo que el cliente envía). |
+| `modelo/respuesta/` | DTOs de salida (lo que el servidor devuelve). |
+| `modelo/servicio/` | Lógica de negocio (interfaz + implementación de cada servicio). |
 
 ### Flujo de una petición
 
@@ -27,13 +38,13 @@ Además se incluyen dos carpetas de soporte transversal:
 Navegador
    │  (V)  resources/vista/*.html  +  js/app.js
    ▼
-ControladorAutenticacion / ControladorProducto / ControladorPedido   ← [C]
+controlador/api/  (ControladorAutenticacion, ControladorProducto, ...)   ← [C]
    │  invoca
    ▼
-ServicioAutenticacion / ServicioProducto / ServicioPedido            ← lógica de negocio
+modelo/servicio/  (ServicioAutenticacion, ServicioProducto, ...)          ← lógica de negocio
    │  usa
    ▼
-RepositorioUsuario / RepositorioProducto / ... (Spring Data JDBC)    ← [M]
+modelo/repositorio/  (RepositorioUsuario, RepositorioProducto, ...)       ← [M]
    │
    ▼
 PostgreSQL
@@ -52,13 +63,20 @@ EMARK_GM_web/
 │   │   ├── java/com/example/emarkGM/
 │   │   │   ├── AplicacionEmarkGm.java        # Clase principal de arranque de Spring Boot
 │   │   │   │
-│   │   │   ├── controlador/                  # [C] CONTROLADOR: Endpoints REST y ruteo de flujos
-│   │   │   │   ├── ControladorAutenticacion.java  # /api/autenticacion (inicio de sesión y registro)
-│   │   │   │   ├── ControladorProducto.java      # /api/productos (Catálogo y gestión)
-│   │   │   │   ├── ControladorCategoria.java     # /api/categorias (Categorías)
-│   │   │   │   └── ControladorPedido.java        # /api/pedidos (Compra y pedidos)
+│   │   │   ├── controlador/                  # [C] CONTROLADOR
+│   │   │   │   ├── api/                      # Endpoints REST de la tienda
+│   │   │   │   │   ├── ControladorAutenticacion.java  # /api/autenticacion (inicio de sesión y registro)
+│   │   │   │   │   ├── ControladorProducto.java      # /api/productos (Catálogo y gestión)
+│   │   │   │   │   ├── ControladorCategoria.java     # /api/categorias (Categorías)
+│   │   │   │   │   └── ControladorPedido.java        # /api/pedidos (Compra y pedidos)
+│   │   │   │   ├── config/                   # Configuración técnica
+│   │   │   │   │   ├── ConfiguracionSeguridad.java   # Autorización RBAC y CORS
+│   │   │   │   │   ├── FiltroAutenticacionJwt.java  # Filtro de validación del token JWT
+│   │   │   │   │   └── ConfiguracionAplicacion.java  # PasswordEncoder (BCrypt)
+│   │   │   │   └── vista/                    # Rutas amigables hacia cada página HTML
+│   │   │   │       └── ControladorVista.java
 │   │   │   │
-│   │   │   ├── modelo/                       # [M] MODELO: dominio, persistencia y contratos
+│   │   │   ├── modelo/                       # [M] MODELO
 │   │   │   │   ├── entidad/                  # Entidades mapeadas a PostgreSQL
 │   │   │   │   │   ├── Usuario.java              # Tabla 'usuarios'
 │   │   │   │   │   ├── Categoria.java            # Tabla 'categorias'
@@ -70,25 +88,23 @@ EMARK_GM_web/
 │   │   │   │   │   ├── RepositorioCategoria.java
 │   │   │   │   │   ├── RepositorioProducto.java
 │   │   │   │   │   └── RepositorioPedido.java
-│   │   │   │   └── dto/                      # Objetos de Transferencia de Datos (DTO)
-│   │   │   │       ├── solicitud/            # SolicitudInicioSesion, SolicitudRegistro,
-│   │   │   │       │                          # SolicitudProducto, SolicitudCompra
-│   │   │   │       └── respuesta/            # RespuestaAutenticacion, RespuestaConfirmacionPedido
+│   │   │   │   ├── solicitud/                # DTOs de entrada (petición del cliente)
+│   │   │   │   │   ├── SolicitudInicioSesion.java
+│   │   │   │   │   ├── SolicitudRegistro.java
+│   │   │   │   │   ├── SolicitudProducto.java
+│   │   │   │   │   └── SolicitudCompra.java
+│   │   │   │   ├── respuesta/                # DTOs de salida (respuesta del servidor)
+│   │   │   │   │   ├── RespuestaAutenticacion.java
+│   │   │   │   │   └── RespuestaConfirmacionPedido.java
+│   │   │   │   └── servicio/                 # Lógica de negocio (interfaz + implementación)
+│   │   │   │       ├── ServicioAutenticacion.java / ServicioAutenticacionImpl.java
+│   │   │   │       ├── ServicioProducto.java / ServicioProductoImpl.java
+│   │   │   │       ├── ServicioCategoria.java / ServicioCategoriaImpl.java
+│   │   │   │       ├── ServicioPedido.java / ServicioPedidoImpl.java
+│   │   │   │       └── ServicioJwt.java / ServicioJwtImpl.java
 │   │   │   │
-│   │   │   ├── vista/                       # [V] VISTA: publicación de páginas y recursos web
-│   │   │   │   └── ConfiguracionVista.java    # Rutas amigables y serving de los recursos estáticos
-│   │   │   │
-│   │   │   ├── servicio/                     # Lógica de Negocio desacoplada (SOLID)
-│   │   │   │   ├── ServicioAutenticacion.java / ServicioAutenticacionImpl.java
-│   │   │   │   ├── ServicioProducto.java / ServicioProductoImpl.java
-│   │   │   │   ├── ServicioCategoria.java / ServicioCategoriaImpl.java
-│   │   │   │   ├── ServicioPedido.java / ServicioPedidoImpl.java
-│   │   │   │   └── ServicioJwt.java / ServicioJwtImpl.java
-│   │   │   │
-│   │   │   └── configuracion/                # Configuración técnica (seguridad, CORS, BCrypt)
-│   │   │       ├── ConfiguracionSeguridad.java   # Autorización RBAC y CORS
-│   │   │       ├── FiltroAutenticacionJwt.java  # Filtro de validación del token JWT
-│   │   │       └── ConfiguracionAplicacion.java  # PasswordEncoder (BCrypt)
+│   │   │   └── vista/                       # [V] VISTA
+│   │   │       └── ConfiguracionVista.java    # Publica los recursos de interfaz en la raíz web
 │   │   │
 │   │   └── resources/
 │   │       ├── application.properties        # Configuración de base de datos y JWT
@@ -109,7 +125,7 @@ EMARK_GM_web/
 
 ## 🌐 Rutas de la Vista (capa V)
 
-La capa Vista se publica desde `src/main/resources/vista/` (configurada en `ConfiguracionVista`):
+La capa Vista se publica desde `src/main/resources/vista/`. Las rutas amigables están definidas en `controlador/vista/ControladorVista.java` y la publicación de los recursos en `vista/ConfiguracionVista.java`:
 
 | Ruta | Página | Contenido |
 | :--- | :--- | :--- |

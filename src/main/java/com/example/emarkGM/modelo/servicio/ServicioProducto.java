@@ -1,6 +1,6 @@
-package com.example.emarkGM.servicio;
+package com.example.emarkGM.modelo.servicio;
 
-import com.example.emarkGM.modelo.dto.solicitud.SolicitudProducto;
+import com.example.emarkGM.modelo.solicitud.SolicitudProducto;
 import com.example.emarkGM.modelo.entidad.Producto;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.emarkGM.modelo.dto.respuesta;
+package com.example.emarkGM.modelo.respuesta;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

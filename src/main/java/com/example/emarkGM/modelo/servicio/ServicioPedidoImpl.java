@@ -1,7 +1,7 @@
-package com.example.emarkGM.servicio.impl;
+package com.example.emarkGM.modelo.servicio;
 
-import com.example.emarkGM.modelo.dto.respuesta.RespuestaConfirmacionPedido;
-import com.example.emarkGM.modelo.dto.solicitud.SolicitudCompra;
+import com.example.emarkGM.modelo.respuesta.RespuestaConfirmacionPedido;
+import com.example.emarkGM.modelo.solicitud.SolicitudCompra;
 import com.example.emarkGM.modelo.entidad.DetallePedido;
 import com.example.emarkGM.modelo.entidad.Pedido;
 import com.example.emarkGM.modelo.entidad.Producto;
@@ -9,7 +9,6 @@ import com.example.emarkGM.modelo.entidad.Usuario;
 import com.example.emarkGM.modelo.repositorio.RepositorioPedido;
 import com.example.emarkGM.modelo.repositorio.RepositorioProducto;
 import com.example.emarkGM.modelo.repositorio.RepositorioUsuario;
-import com.example.emarkGM.servicio.ServicioPedido;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

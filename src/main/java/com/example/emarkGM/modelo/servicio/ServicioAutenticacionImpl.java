@@ -1,12 +1,10 @@
-package com.example.emarkGM.servicio.impl;
+package com.example.emarkGM.modelo.servicio;
 
-import com.example.emarkGM.modelo.dto.respuesta.RespuestaAutenticacion;
-import com.example.emarkGM.modelo.dto.solicitud.SolicitudInicioSesion;
-import com.example.emarkGM.modelo.dto.solicitud.SolicitudRegistro;
+import com.example.emarkGM.modelo.respuesta.RespuestaAutenticacion;
+import com.example.emarkGM.modelo.solicitud.SolicitudInicioSesion;
+import com.example.emarkGM.modelo.solicitud.SolicitudRegistro;
 import com.example.emarkGM.modelo.entidad.Usuario;
 import com.example.emarkGM.modelo.repositorio.RepositorioUsuario;
-import com.example.emarkGM.servicio.ServicioAutenticacion;
-import com.example.emarkGM.servicio.ServicioJwt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

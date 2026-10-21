@@ -1,4 +1,4 @@
-package com.example.emarkGM.servicio;
+package com.example.emarkGM.modelo.servicio;
 
 import com.example.emarkGM.modelo.entidad.Categoria;
 

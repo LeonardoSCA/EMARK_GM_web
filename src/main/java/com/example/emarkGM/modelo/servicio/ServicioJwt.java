@@ -1,4 +1,4 @@
-package com.example.emarkGM.servicio;
+package com.example.emarkGM.modelo.servicio;
 
 public interface ServicioJwt {
     String generarToken(String correo, String rol);

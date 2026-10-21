@@ -1,7 +1,7 @@
-package com.example.emarkGM.controlador;
+package com.example.emarkGM.controlador.api;
 
 import com.example.emarkGM.modelo.entidad.Categoria;
-import com.example.emarkGM.servicio.ServicioCategoria;
+import com.example.emarkGM.modelo.servicio.ServicioCategoria;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

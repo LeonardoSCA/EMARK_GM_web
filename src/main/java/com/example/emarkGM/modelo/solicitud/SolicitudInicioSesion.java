@@ -1,4 +1,4 @@
-package com.example.emarkGM.modelo.dto.solicitud;
+package com.example.emarkGM.modelo.solicitud;
 
 public class SolicitudInicioSesion {
     private String correo;
