@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emark GM — Repuestos para maquinaria pesada</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+</head>
+<body data-page="home">
+  <div class="top-bar py-2">
+    <div class="container d-flex flex-wrap justify-content-between gap-2">
+      <span>Atención B2B y B2C · Lima y provincias</span>
+      <span>Lun–Sáb 8:00 – 18:00 · <a href="tel:+51999999999">+51 986 754 974</a></span>
+    </div>
+  </div>
+
+  <header class="site-header sticky-top">
+    <div class="container py-3">
+      <div class="row g-3 align-items-center">
+        <div class="col-lg-2">
+          <a href="index.html" class="brand-logo">GM <span>EMARK</span></a>
+        </div>
+        <div class="col-lg-5">
+          <form class="d-flex" data-header-search role="search">
+            <input class="form-control me-2" type="search" name="q" placeholder="Busca por código, repuesto, marca o maquinaria…" aria-label="Buscar">
+            <button class="btn btn-emark" type="submit">Buscar</button>
+          </form>
+        </div>
+        <div class="col-lg-5 d-flex flex-wrap align-items-center justify-content-lg-end gap-2">
+          <nav class="d-flex flex-wrap gap-1">
+            <a class="nav-link-custom active" href="index.html">Inicio</a>
+            <a class="nav-link-custom" href="catalogo.html">Catálogo</a>
+            <a class="nav-link-custom" href="carrito.html">Cotizador</a>
+            <a class="nav-link-custom" href="#contacto">Contacto</a>
+          </nav>
+          <div id="auth-nav-container" class="d-inline-flex align-items-center"></div>
+          <a href="carrito.html" class="btn btn-emark btn-cart d-inline-flex align-items-center gap-2">
+            Carrito
+            <span class="badge rounded-pill cart-badge" data-cart-count>0</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero py-5">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-6">
+          <p class="text-uppercase small fw-semibold text-muted mb-2">Repuestos verificados</p>
+          <h1 class="mb-3">Tu maquinaria activa.<br>Tus repuestos a tiempo.</h1>
+          <p class="lead text-muted mb-4">Catálogo digital, cotización automática y coordinación de despacho. Deja atrás las publicaciones en Facebook y las cotizaciones manuales por WhatsApp.</p>
+          <div class="d-flex flex-wrap gap-2 mb-4">
+            <a href="catalogo.html" class="btn btn-emark btn-lg">Ver catálogo completo</a>
+            <a href="https://wa.me/51999999999" class="btn btn-outline-secondary btn-lg" target="_blank" rel="noopener">Hablar con un especialista</a>
+          </div>
+          <div class="row g-2 hero-metrics">
+            <div class="col-sm-4"><div class="metric"><strong>+2,400</strong><br><span class="small text-muted">repuestos</span></div></div>
+            <div class="col-sm-4"><div class="metric"><strong>18 min</strong><br><span class="small text-muted">respuesta promedio</span></div></div>
+            <div class="col-sm-4"><div class="metric"><strong>24 h</strong><br><span class="small text-muted">despacho local</span></div></div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="hero-img-card">
+            <img src="imagenes/BOMBA HIDRAULICA.jpg" class="w-100" alt="Mecánico trabajando en maquinaria pesada">
+          </div>
+          <p class="small text-muted mt-2 mb-0">Compatibilidad verificada con marcas líderes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-bar py-4">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-3 col-6">
+          <div class="trust-item">
+            <div class="trust-icon">✓</div>
+            <div><strong>Compra segura</strong><br><span class="small text-muted">Stock y códigos revisados</span></div>
+          </div>
+        </div>
+        <div class="col-md-3 col-6">
+          <div class="trust-item">
+            <div class="trust-icon">🚚</div>
+            <div><strong>Despacho coordinado</strong><br><span class="small text-muted">Lima y agencias</span></div>
+          </div>
+        </div>
+        <div class="col-md-3 col-6">
+          <div class="trust-item">
+            <div class="trust-icon">⚙</div>
+            <div><strong>Soporte especializado</strong><br><span class="small text-muted">Asesoría técnica</span></div>
+          </div>
+        </div>
+        <div class="col-md-3 col-6">
+          <div class="trust-item">
+            <div class="trust-icon">🏢</div>
+            <div><strong>B2B y B2C</strong><br><span class="small text-muted">Factura y cotización</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-2">
+        <h2 class="section-title h3 mb-0">Destacados del catálogo</h2>
+        <a href="catalogo.html">Ver todos →</a>
+      </div>
+      <div class="row g-4" id="featured-products-grid"></div>
+    </div>
+  </section>
+
+  <section class="pb-5">
+    <div class="container">
+      <div class="cta-band p-4 p-md-5 d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+        <div>
+          <h2 class="h4 mb-2">¿No encuentras el código?</h2>
+          <p class="text-muted mb-0">Envíanos una foto o número de parte. Nosotros lo ubicamos.</p>
+        </div>
+        <a href="https://wa.me/51999999999" class="btn btn-emark btn-lg" target="_blank" rel="noopener">Solicitar soporte técnico</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer" id="contacto">
+    <div class="container py-5">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <a href="index.html" class="brand-logo d-inline-block mb-2">GM <span>EMARK</span></a>
+          <p class="text-muted small">Venta de repuestos para maquinaria pesada. Plataforma web para catálogo, cotización y registro de pedidos.</p>
+        </div>
+        <div class="col-md-4">
+          <h3 class="h6">Empresa</h3>
+          <ul class="list-unstyled small">
+            <li><a href="index.html">Nosotros</a></li>
+            <li><a href="catalogo.html">Catálogo</a></li>
+            <li><a href="carrito.html">Cotizador</a></li>
+            <li><a href="#">Términos</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h3 class="h6">Soporte</h3>
+          <ul class="list-unstyled small text-muted">
+            <li>Tel: <a href="tel:+51999999999">+51 986 754 974</a></li>
+            <li>Email: <a href="mailto:ventas@emarkgm.com">ventas@emarkgm.com</a></li>
+            <li><a href="#">Facebook</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom py-3 mt-3 d-flex flex-wrap justify-content-between gap-2">
+        <span>© 2026 Emark GM. Todos los derechos reservados.</span>
+        <a href="#">Política de privacidad</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toast-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

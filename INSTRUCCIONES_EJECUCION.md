@@ -55,9 +55,9 @@ Esta guía explica paso a paso cómo abrir, configurar, ejecutar y probar la sol
 ## 5. Paso 4: Iniciar el Aplicativo
 
 1. En el panel izquierdo del proyecto (**Project View**), navega hasta:
-   `src/main/java/com/example/emarkGM/EmarkGmApplication.java`
+   `src/main/java/com/example/emarkGM/AplicacionEmarkGm.java`
 2. Abre el archivo y haz clic en el botón verde de inicio (`▶`) ubicado en la línea del método `main`.
-3. Selecciona **Run 'EmarkGmApplication'**.
+3. Selecciona **Run 'AplicacionEmarkGm'**.
 4. En la pestaña inferior **Run**, observarás el log de inicio de Spring Boot terminando con:
    ```text
    Tomcat started on port 8080 (http) with context path '/'
@@ -72,6 +72,8 @@ Abre cualquier navegador web y entra a:
 
 Todo el sistema (API REST, base de datos y vistas HTML/CSS/JS) se sirve de forma unificada desde ese único puerto sin necesidad de Live Server ni configuraciones adicionales.
 
+> **Nota sobre la capa Vista:** los archivos de interfaz se encuentran en `src/main/resources/vista/` y se publican en la raíz web mediante `com.example.emarkGM.vista.ConfiguracionVista`. Además de los `.html` (por ejemplo `http://localhost:8080/catalogo.html`), existen rutas amigables: `/`, `/inicio`, `/catalogo`, `/cotizador` y `/panel-admin`.
+
 ---
 
 ## 7. Paso 6: Prueba de Roles y Funcionalidades
@@ -84,7 +86,7 @@ Todo el sistema (API REST, base de datos y vistas HTML/CSS/JS) se sirve de forma
 - Se actualizará el encabezado mostrando `👤 Juan (Cliente)`.
 - Entra a **Catálogo**, filtra repuestos por categoría o marca, y añade productos al carrito.
 - Entra a **Cotizador** (Carrito), ingresa los datos de entrega y haz clic en **Finalizar compra**.
-- El sistema conectará con el endpoint transaccional `/api/orders`, descontará el inventario en PostgreSQL y mostrará el número de pedido con la simulación del mensaje de WhatsApp.
+- El sistema conectará con el endpoint transaccional `/api/pedidos`, descontará el inventario en PostgreSQL y mostrará el número de pedido con la simulación del mensaje de WhatsApp.
 
 ### B. Rol Administrador
 - Cierra sesión desde el menú de usuario.
@@ -97,4 +99,4 @@ Todo el sistema (API REST, base de datos y vistas HTML/CSS/JS) se sirve de forma
   - Modificar precios, stock, descripciones e imágenes de repuestos.
   - Registrar nuevos repuestos con validaciones.
   - Eliminar repuestos del catálogo.
-- *Validación de seguridad:* Cualquier petición administrativa enviada sin el token `ROLE_ADMIN` es rechazada con un código `403 Forbidden` por Spring Security.
+- *Validación de seguridad:* Cualquier petición administrativa enviada sin el token `ROLE_ADMINISTRADOR` es rechazada con un código `403 Forbidden` por Spring Security.

@@ -1,69 +1,69 @@
 -- Esquema de base de datos para Emark GM (PostgreSQL)
 
-DROP TABLE IF EXISTS order_items CASCADE;
-DROP TABLE IF EXISTS orders CASCADE;
-DROP TABLE IF EXISTS products CASCADE;
-DROP TABLE IF EXISTS categories CASCADE;
-DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS detalle_pedidos CASCADE;
+DROP TABLE IF EXISTS pedidos CASCADE;
+DROP TABLE IF EXISTS productos CASCADE;
+DROP TABLE IF EXISTS categorias CASCADE;
+DROP TABLE IF EXISTS usuarios CASCADE;
 
 -- 1. Tabla de Usuarios
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE IF NOT EXISTS usuarios (
     id BIGSERIAL PRIMARY KEY,
-    name VARCHAR(150) NOT NULL,
-    email VARCHAR(150) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    role VARCHAR(50) NOT NULL DEFAULT 'ROLE_CUSTOMER',
-    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    nombre VARCHAR(150) NOT NULL,
+    correo VARCHAR(150) UNIQUE NOT NULL,
+    contrasena VARCHAR(255) NOT NULL,
+    rol VARCHAR(50) NOT NULL DEFAULT 'ROLE_COMPRADOR',
+    fecha_creacion TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- 2. Tabla de Categorías
-CREATE TABLE IF NOT EXISTS categories (
+CREATE TABLE IF NOT EXISTS categorias (
     id BIGSERIAL PRIMARY KEY,
-    name VARCHAR(100) UNIQUE NOT NULL,
-    description TEXT
+    nombre VARCHAR(100) UNIQUE NOT NULL,
+    descripcion TEXT
 );
 
 -- 3. Tabla de Productos (Repuestos)
-CREATE TABLE IF NOT EXISTS products (
+CREATE TABLE IF NOT EXISTS productos (
     id BIGSERIAL PRIMARY KEY,
-    name VARCHAR(200) NOT NULL,
-    price NUMERIC(12, 2) NOT NULL CHECK (price >= 0),
+    nombre VARCHAR(200) NOT NULL,
+    precio NUMERIC(12, 2) NOT NULL CHECK (precio >= 0),
     stock INTEGER NOT NULL CHECK (stock >= 0),
-    category_id BIGINT REFERENCES categories(id) ON DELETE SET NULL,
-    brand VARCHAR(100) NOT NULL,
-    machinery VARCHAR(100) NOT NULL,
-    image_url VARCHAR(500),
-    description TEXT,
-    specs TEXT,
-    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    categoria_id BIGINT REFERENCES categorias(id) ON DELETE SET NULL,
+    marca VARCHAR(100) NOT NULL,
+    maquinaria VARCHAR(100) NOT NULL,
+    url_imagen VARCHAR(500),
+    descripcion TEXT,
+    especificaciones TEXT,
+    fecha_creacion TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- 4. Tabla de Órdenes / Pedidos
-CREATE TABLE IF NOT EXISTS orders (
+CREATE TABLE IF NOT EXISTS pedidos (
     id BIGSERIAL PRIMARY KEY,
-    user_id BIGINT REFERENCES users(id) ON DELETE SET NULL,
-    client_name VARCHAR(150) NOT NULL,
-    client_doc VARCHAR(50) NOT NULL,
-    dispatch_type VARCHAR(50) NOT NULL,
-    payment_method VARCHAR(50) NOT NULL,
-    address TEXT,
-    shipping_cost NUMERIC(10, 2) NOT NULL DEFAULT 0.00,
+    usuario_id BIGINT REFERENCES usuarios(id) ON DELETE SET NULL,
+    nombre_cliente VARCHAR(150) NOT NULL,
+    documento_cliente VARCHAR(50) NOT NULL,
+    tipo_entrega VARCHAR(50) NOT NULL,
+    metodo_pago VARCHAR(50) NOT NULL,
+    direccion TEXT,
+    costo_envio NUMERIC(10, 2) NOT NULL DEFAULT 0.00,
     subtotal NUMERIC(12, 2) NOT NULL,
     igv NUMERIC(12, 2) NOT NULL,
     total NUMERIC(12, 2) NOT NULL,
-    status VARCHAR(50) NOT NULL DEFAULT 'COMPLETED',
-    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    estado VARCHAR(50) NOT NULL DEFAULT 'COMPLETADO',
+    fecha_creacion TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- 5. Tabla de Detalles de Orden
-CREATE TABLE IF NOT EXISTS order_items (
+-- 5. Tabla de Detalles de Pedido
+CREATE TABLE IF NOT EXISTS detalle_pedidos (
     id BIGSERIAL PRIMARY KEY,
-    order_id BIGINT NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
-    product_id BIGINT REFERENCES products(id) ON DELETE RESTRICT,
-    quantity INTEGER NOT NULL CHECK (quantity > 0),
-    unit_price NUMERIC(12, 2) NOT NULL CHECK (unit_price >= 0)
+    pedido_id BIGINT NOT NULL REFERENCES pedidos(id) ON DELETE CASCADE,
+    producto_id BIGINT REFERENCES productos(id) ON DELETE RESTRICT,
+    cantidad INTEGER NOT NULL CHECK (cantidad > 0),
+    precio_unitario NUMERIC(12, 2) NOT NULL CHECK (precio_unitario >= 0)
 );
 
-CREATE INDEX IF NOT EXISTS idx_products_category ON products(category_id);
-CREATE INDEX IF NOT EXISTS idx_orders_user ON orders(user_id);
-CREATE INDEX IF NOT EXISTS idx_order_items_order ON order_items(order_id);
+CREATE INDEX IF NOT EXISTS idx_productos_categoria ON productos(categoria_id);
+CREATE INDEX IF NOT EXISTS idx_pedidos_usuario ON pedidos(usuario_id);
+CREATE INDEX IF NOT EXISTS idx_detalle_pedidos_pedido ON detalle_pedidos(pedido_id);
