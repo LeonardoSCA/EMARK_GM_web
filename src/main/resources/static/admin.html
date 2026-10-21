@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emark GM — Panel Administrativo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+</head>
+<body data-page="admin">
+  <div class="top-bar py-2">
+    <div class="container d-flex flex-wrap justify-content-between gap-2">
+      <span>Panel de Control Administrativo (Emark GM)</span>
+      <span id="admin-user-info">Cargando...</span>
+    </div>
+  </div>
+
+  <header class="site-header sticky-top">
+    <div class="container py-3">
+      <div class="row g-3 align-items-center">
+        <div class="col-lg-3">
+          <a href="index.html" class="brand-logo">GM <span>EMARK</span> <small class="text-white-50 fs-6">ADMIN</small></a>
+        </div>
+        <div class="col-lg-9 d-flex flex-wrap align-items-center justify-content-lg-end gap-2">
+          <nav class="d-flex flex-wrap gap-1">
+            <a class="nav-link-custom" href="index.html">Inicio</a>
+            <a class="nav-link-custom" href="catalogo.html">Catálogo Público</a>
+            <a class="nav-link-custom active" href="admin.html">Gestión de Inventario</a>
+          </nav>
+          <div id="auth-nav-container" class="d-inline-flex align-items-center gap-2"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="py-5">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+        <div>
+          <h1 class="h2 mb-1">Gestión de Repuestos y Productos</h1>
+          <p class="text-muted mb-0">Agrega, edita o elimina repuestos del inventario en tiempo real.</p>
+        </div>
+        <button class="btn btn-emark" id="btn-nuevo-producto" data-bs-toggle="modal" data-bs-target="#productoModal">
+          + Nuevo Repuesto
+        </button>
+      </div>
+
+      <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body p-4">
+          <div class="row g-3 align-items-center mb-3">
+            <div class="col-md-6">
+              <input type="text" id="admin-search" class="form-control" placeholder="Buscar por repuesto, marca o maquinaria...">
+            </div>
+            <div class="col-md-6 text-md-end text-muted">
+              Total registrados: <strong id="admin-product-count">0</strong>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th>ID</th>
+                  <th>Imagen</th>
+                  <th>Repuesto</th>
+                  <th>Marca</th>
+                  <th>Maquinaria</th>
+                  <th>Precio</th>
+                  <th>Stock</th>
+                  <th class="text-center">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="admin-product-tbody">
+                <tr>
+                  <td colspan="8" class="text-center py-4 text-muted">Cargando inventario...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal Nuevo/Editar Producto -->
+  <div class="modal fade" id="productoModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="productoModalTitle">Nuevo Repuesto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <form id="form-producto">
+          <div class="modal-body">
+            <input type="hidden" id="prod-id">
+            <div class="row g-3">
+              <div class="col-md-8">
+                <label class="form-label" for="prod-nombre">Nombre del Repuesto *</label>
+                <input type="text" class="form-control" id="prod-nombre" required>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label" for="prod-categoria">Categoría *</label>
+                <select class="form-select" id="prod-categoria" required>
+                  <option value="1">Filtros</option>
+                  <option value="2">Bombas</option>
+                  <option value="3">Kits</option>
+                  <option value="4">Hidráulica</option>
+                  <option value="5">Transmisión</option>
+                  <option value="6">Sensores</option>
+                  <option value="7">Motor</option>
+                  <option value="8">Dirección</option>
+                  <option value="9">Estructura</option>
+                  <option value="10">Fijación</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label" for="prod-precio">Precio (S/) *</label>
+                <input type="number" step="0.01" class="form-control" id="prod-precio" required>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label" for="prod-stock">Stock *</label>
+                <input type="number" class="form-control" id="prod-stock" required>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label" for="prod-marca">Marca *</label>
+                <input type="text" class="form-control" id="prod-marca" placeholder="Caterpillar, Komatsu..." required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="prod-maquinaria">Maquinaria Compatible *</label>
+                <input type="text" class="form-control" id="prod-maquinaria" placeholder="Excavadora, Cargador frontal..." required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="prod-imagen">Ruta / URL de Imagen</label>
+                <input type="text" class="form-control" id="prod-imagen" placeholder="resources/prods/FILTRO DE ACEITE.jpg">
+              </div>
+              <div class="col-12">
+                <label class="form-label" for="prod-desc">Descripción</label>
+                <textarea class="form-control" id="prod-desc" rows="2"></textarea>
+              </div>
+              <div class="col-12">
+                <label class="form-label" for="prod-specs">Especificaciones Técnicas (separadas por coma)</label>
+                <input type="text" class="form-control" id="prod-specs" placeholder="Micraje 10 μm, Rosca estándar, Calidad ISO">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-emark" id="btn-guardar-producto">Guardar Repuesto</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer-dark py-4 mt-auto">
+    <div class="container text-center text-muted small">
+      &copy; Emark GM — Sistema de Gestión y Tienda Virtual de Repuestos de Maquinaria
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

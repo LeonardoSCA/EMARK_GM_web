@@ -3,25 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Carrito y cotización — Emark GM</title>
+  <title>Emark GM — Cotizador y Carrito</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
 </head>
 <body data-page="cart">
   <div class="top-bar py-2">
     <div class="container d-flex flex-wrap justify-content-between gap-2">
-      <span>IGV 18% · Cotización y pedido en un solo flujo</span>
-      <span><a href="catalogo.html">Seguir comprando</a></span>
+      <span>Atención B2B y B2C · Lima y provincias</span>
+      <span>Lun–Sáb 8:00 – 18:00 · <a href="tel:+51999999999">+51 999 999 999</a></span>
     </div>
   </div>
 
   <header class="site-header">
     <div class="container py-3 d-flex flex-wrap align-items-center justify-content-between gap-3">
       <a href="index.html" class="brand-logo">GM <span>EMARK</span></a>
-      <nav class="d-flex flex-wrap gap-1">
+      <nav class="d-flex flex-wrap gap-1 align-items-center">
         <a class="nav-link-custom" href="index.html">Inicio</a>
         <a class="nav-link-custom" href="catalogo.html">Catálogo</a>
         <a class="nav-link-custom active" href="carrito.html">Cotizador</a>
+        <div id="auth-nav-container" class="d-inline-flex align-items-center ms-2"></div>
       </nav>
       <span class="btn btn-emark btn-cart disabled opacity-100">
         Carrito <span class="badge rounded-pill cart-badge" data-cart-count>0</span>
@@ -32,12 +33,12 @@
   <section class="page-hero-sm py-4">
     <div class="container">
       <h1 class="h2 mb-1">Carrito, pago y logística</h1>
-      <p class="text-muted mb-0">Modifica cantidades, revisa la cotización y registra tu pedido (demo local).</p>
+      <p class="text-muted mb-0">Modifica cantidades, revisa la cotización y registra tu pedido.</p>
     </div>
   </section>
 
   <main class="container py-4">
-    <div id="cart-empty" class="text-center py-5 d-none">
+    <div id="cart-empty-message" class="text-center py-5 d-none">
       <p class="lead mb-3">Tu carrito está vacío</p>
       <a href="catalogo.html" class="btn btn-emark">Explorar catálogo</a>
     </div>
@@ -47,7 +48,7 @@
         <div class="col-lg-8">
           <section class="mb-4">
             <h2 class="h5 mb-3">1. Resumen de repuestos</h2>
-            <div id="cart-lines"></div>
+            <div id="cart-items-list"></div>
           </section>
 
           <section class="mb-4">
@@ -57,21 +58,21 @@
                 <label class="option-card d-block p-3 h-100">
                   <input class="form-check-input me-2" type="radio" name="envio" value="local" checked>
                   <strong>Despacho local rápido</strong>
-                  <p class="small text-muted mb-0">Lima metropolitana · desde S/ 25.00</p>
+                  <p class="small text-muted mb-0">Lima metropolitana · S/ 25.00</p>
                 </label>
               </div>
               <div class="col-md-6">
                 <label class="option-card d-block p-3 h-100">
                   <input class="form-check-input me-2" type="radio" name="envio" value="provincia">
                   <strong>Envío a provincia</strong>
-                  <p class="small text-muted mb-0">Agencias · desde S/ 45.00</p>
+                  <p class="small text-muted mb-0">Agencias autorizadas · S/ 45.00</p>
                 </label>
               </div>
             </div>
             <div class="row g-3">
               <div class="col-md-6">
-                <label class="form-label" for="cliente-distrito">Distrito / Ciudad</label>
-                <input type="text" class="form-control" id="cliente-distrito" placeholder="Ej. Ate, Trujillo">
+                <label class="form-label" for="cliente-distrito">Distrito / Ciudad *</label>
+                <input type="text" class="form-control" id="cliente-distrito" placeholder="Ej. Ate, Trujillo" required>
               </div>
               <div class="col-md-6">
                 <label class="form-label" for="cliente-direccion">Dirección o agencia</label>
@@ -81,7 +82,7 @@
           </section>
 
           <section class="mb-4">
-            <h2 class="h5 mb-3">3. Método de pago</h2>
+            <h2 class="h5 mb-3">3. Método de pago (Simulado)</h2>
             <div class="row g-3 mb-3">
               <div class="col-md-4">
                 <label class="option-card d-block p-3 h-100">
@@ -101,18 +102,18 @@
                 <label class="option-card d-block p-3 h-100">
                   <input class="form-check-input me-2" type="radio" name="pago" value="yape">
                   <strong>Yape / Plin</strong>
-                  <p class="small text-muted mb-0">Pago inmediato</p>
+                  <p class="small text-muted mb-0">Pago inmediato QR</p>
                 </label>
               </div>
             </div>
             <div class="row g-3">
               <div class="col-md-6">
-                <label class="form-label" for="cliente-nombre">Razón social / Nombre</label>
-                <input type="text" class="form-control" id="cliente-nombre" placeholder="Emark Contratistas SAC">
+                <label class="form-label" for="cliente-nombre">Razón social / Nombre *</label>
+                <input type="text" class="form-control" id="cliente-nombre" placeholder="Emark Contratistas SAC" required>
               </div>
               <div class="col-md-6">
-                <label class="form-label" for="cliente-doc">RUC / DNI</label>
-                <input type="text" class="form-control" id="cliente-doc" placeholder="20XXXXXXXXX">
+                <label class="form-label" for="cliente-doc">RUC / DNI *</label>
+                <input type="text" class="form-control" id="cliente-doc" placeholder="20XXXXXXXXX" required>
               </div>
             </div>
           </section>
@@ -150,7 +151,7 @@
               <button type="button" class="btn btn-emark btn-lg" id="btn-finalizar">Finalizar compra</button>
               <button type="button" class="btn btn-outline-secondary" id="btn-whatsapp">Enviar cotización por WhatsApp</button>
             </div>
-            <p class="small text-muted mt-3 mb-0">El pedido se guarda en tu navegador hasta conectar el backend.</p>
+            <p class="small text-muted mt-3 mb-0">Conexión en línea con la API REST de Emark GM.</p>
           </div>
         </div>
       </div>
@@ -159,12 +160,14 @@
 
   <div class="modal fade" id="orderModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content text-center p-3">
+      <div class="modal-content text-center p-4">
         <div class="modal-body">
-          <div class="display-6 text-success mb-2">✓</div>
-          <h2 class="h5">Pedido registrado</h2>
-          <p class="text-muted">Número de referencia: <strong id="pedido-id"></strong></p>
-          <a href="catalogo.html" class="btn btn-emark">Volver al catálogo</a>
+          <div class="display-5 text-success mb-2">✓</div>
+          <h2 class="h4">¡Compra Procesada Exitosamente!</h2>
+          <p class="text-muted">Orden de compra: <strong id="pedido-id" class="text-dark"></strong></p>
+          <div class="mt-3">
+            <a href="catalogo.html" class="btn btn-emark">Volver al catálogo</a>
+          </div>
         </div>
       </div>
     </div>
